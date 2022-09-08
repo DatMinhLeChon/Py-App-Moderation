@@ -1,6 +1,5 @@
 import string
-# variable and 
-#class
+# variable and class
 
 def cal_time(val_a, val_b):
     if int(val_b) - int(val_b) > 0:
@@ -31,7 +30,8 @@ class FCFS:
         self.list_work = [];
         for i in range(0, int(self.volume)):
             self.list_work.append(work());
-            temp1 = input("nhap ten cong viec {i}" );
+            print("Cong viec thu");
+            temp1 = input("nhap ten cong viec" );
             temp2 = input("nhap thoi gian cong viec" );
             temp3 = input("nhap thoi gian toi han cua cong viec" );
             self.list_work[i]._init_(temp1, temp2, temp3);
