@@ -1,6 +1,6 @@
+# day la file thu vien
 import string
-# variable and 
-#class
+# variable and class
 
 def cal_time(val_a, val_b):
     if int(val_b) - int(val_b) > 0:
@@ -8,7 +8,7 @@ def cal_time(val_a, val_b):
     else:
         return int(val_b) - int(val_a)
 
-class work:
+class work: # Class dinh nghia 1 cong viec
     ## khoi tao
     def _init_(self, val_a, val_b, val_c):
         self.name_work = val_a;
@@ -24,7 +24,7 @@ class work:
     def get_time_end(self):
         return self.time_end
 
-class FCFS:
+class FCFS: # Class dinh nghia 1 danh sach cac cong viec
     ## khoi tao
     def _init_List(self, val_a):
         self.volume = val_a;
