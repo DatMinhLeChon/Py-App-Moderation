@@ -1,0 +1,60 @@
+class work: 
+    def __init__(self, name_work, time_work, time_end):
+        self.name_work = name_work; # Ten cong viec
+        self.time_work = time_work; # Thoi gian thuc hien cong viec
+        self.time_end = time_end; # Thoi gian toi han
+
+class EDD:
+    def __init__(self, work_count): # Khỏi tạo giá trị cho bảng
+        self.work_count = work_count
+        self.list_work = []; # Tao danh sach rong
+        for i in range(0, int(self.work_count)): #đếm EDD
+            temp1 = input("Nhập tên công việc: " )
+            temp2 = input("Nhập thời gian gia công của công việc " + temp1 + " : ")
+            temp3 = input("Nhập thời gian tới hạn của công việc " + temp1 + " : " )
+            self.list_work.append(work(temp1, int(temp2), int(temp3))) # Them mot phan tu kieu work vao danh sach
+    def displayTable(self): # Hiển thị giá trị đã nhập từ bàn phím
+        print("\n===================================================")
+        print("=========== LUẬT PHÂN VIỆC EDD : MÁY ĐƠN ==========")
+        print("===================================================")
+        print("Tên công việc || Thời gian gia công || Ngày tới hạn")
+        for work in self.list_work:
+            print( "     "+work.name_work + "        ||         " + str(work.time_work) + "          ||     " + str(work.time_end))
+        print("===================================================\n")
+    def sortTimeEnd(self): # Sắp xếp các công việc dựa theo ngày tới hạn
+        for i in range(0, len(self.list_work) - 1):
+            for j in range(0, len(self.list_work) - 1):
+                 if self.list_work[j].time_end > self.list_work[j + 1].time_end:
+                    tmp = self.list_work[j + 1]
+                    self.list_work[j + 1] = self.list_work[j]
+                    self.list_work[j] = tmp
+    def printNameWork(self): # Xuất thứ tự thực thi
+        output = self.list_work[0].name_work
+        for work in self.list_work[1:]:
+            output += " -> " + work.name_work
+        print("Thứ tự thực thi công việc: " + output)
+
+
+def main():
+    print("Nhập số lượng công việc: ")
+    edd = EDD(int(input()))
+    edd.displayTable()
+    edd.sortTimeEnd()
+    edd.printNameWork()
+
+
+main()
+
+
+
+
+
+
+       
+
+
+
+
+        
+
+
