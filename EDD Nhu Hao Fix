@@ -1,0 +1,90 @@
+from re import S
+
+def cal_time(val_a, val_b):
+    if(val_a <val_b):
+        return 0
+    else: return val_b - val_a
+
+class work: 
+    def __init__(self, name_work, time_work, time_end):
+        self.name_work = name_work; # Ten cong viec
+        self.time_work = time_work; # Thoi gian thuc hien cong viec
+        self.time_end = time_end; # Thoi gian toi han
+
+class EDD:
+    def __init__(self, val_a): # Khỏi tạo giá trị cho bảng
+        self.total_gia_cong_time = 0
+        self.total_late_time = 0
+        self.total_time_line = 0
+        self.total_deadline_time = 0
+        self.mean_work = 0
+        self.mean_done_time = 0
+        self.mean_late = 0
+        self.do_huu_dung = 0
+        self.work_count = val_a
+        self.list_work = []; # Tao danh sach rong
+        self.time_line = []
+        for i in range(self.work_count): #đếm EDD
+            temp1 = input("Nhập tên công việc: " )
+            temp2 = input("Nhập thời gian gia công của công việc " + temp1 + " : ")
+            temp3 = input("Nhập thời gian tới hạn của công việc " + temp1 + " : " )
+            self.list_work.append(work(temp1, int(temp2), int(temp3))) # Them mot phan tu kieu work vao danh sach
+    def displayTable(self): # Hiển thị giá trị đã nhập từ bàn phím
+        print("\n===================================================")
+        print("=========== LUẬT PHÂN VIỆC EDD : MÁY ĐƠN ==========")
+        print("===================================================")
+        print("Tên công việc || Thời gian gia công || Ngày tới hạn")
+        for work in self.list_work:
+            print( "     "+work.name_work + "        ||         " + str(work.time_work) + "          ||     " + str(work.time_end))
+        print("===================================================\n")
+    def sortTimeEnd(self): # Sắp xếp các công việc dựa theo ngày tới hạn
+        for i in range(0, len(self.list_work) - 1):
+            for j in range(0, len(self.list_work) - 1):
+                 if self.list_work[j].time_end > self.list_work[j + 1].time_end:
+                    tmp = self.list_work[j + 1]
+                    self.list_work[j + 1] = self.list_work[j]
+                    self.list_work[j] = tmp
+    def printNameWork(self): # Xuất thứ tự thực thi
+        output = self.list_work[0].name_work
+        for work in self.list_work[1:]:
+            output += " -> " + work.name_work
+        print("Thứ tự thực thi công việc: " + output)
+
+    def calculate(self):
+        for i in range(len(self.list_work)):
+            self.total_gia_cong_time += self.list_work[i].time_work # Tinh Tong thoi gian cong viec tai thoi diem cong viec thu i duoc thuc hien
+            self.total_late_time += cal_time(self.list_work[i].time_end, self.total_gia_cong_time)
+            self.total_deadline_time += self.list_work[i].time_end
+
+            if i > 0:
+                self.time_line.append(self.time_line[i - 1] + self.list_work[i].time_work)
+            else:
+                self.time_line.append(self.list_work[i].time_work)
+            self.total_time_line += self.time_line[i]
+            self.process = [i.name_work for i in self.list_work]
+            self.mean_done_time = self.total_time_line / self.work_count
+            self.do_huu_dung = round(self.total_gia_cong_time / self.total_time_line * 100, 2)
+            self.mean_work = round(self.total_time_line / self.total_gia_cong_time, 3)
+            self.mean_late = self.total_late_time / self.work_count
+    def show(self):
+        print("Tong thoi gian gia cong:", self.total_gia_cong_time)
+        print("Tong thoi gian hoan thanh cac cong viec:", self.total_time_line)
+        print("Thoi gian hoan thanh cong viec trung binh:", self.mean_done_time)
+        print("So luong cong viec hoan thanh trung binh:", self.mean_work)
+        print("Tong thoi gian tre han:", self.total_late_time)
+        print("Do tre trung binh", self.mean_late)
+        print("Do huu dung:", self.do_huu_dung)
+
+
+def main():
+    val_a= int(input("Nhập số lượng công việc: "))
+    edd = EDD(val_a)
+    # edd.__init__(val_a)
+    edd.calculate()
+    edd.displayTable()
+    edd.sortTimeEnd()
+    edd.printNameWork()
+    edd.show()
+
+
+main()
