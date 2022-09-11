@@ -1,14 +1,15 @@
+# Function, variable and class
 # Ham tra ve gia tri thoi gian tre han cua cong viec
-# a la thoi gian toi han, b la dong thoi gian
 def cal_time(val_a, val_b):
     if val_a - val_b > 0:
         return 0
     else:
         return val_b - val_a
+
 # Dinh nghia mot cong viec 
 class work:
     # Khoi tao gia tri
-   def __init__(self, name, time_work, time_end, weight,rate):
+    def __init__(self, name, time_work, time_end, weight, rate):
         self.name_work = name # Ten cong viec
         self.time_work = time_work # Thoi gian thuc hien cong viec
         self.time_end = time_end # Thoi gian toi han
@@ -20,35 +21,43 @@ class work:
         self.total_deadline_time = 0
         self.total_time_line = 0
 
+  
+
+    # Dinh nghia mot danh sach cac cong viec - define a list of work
+class WSPT:
+    # Khoi tao gia tri
+    def _init_List(self, val_a):
+        
+        self.volume = val_a
+        self.list_work = []; # Tao danh sach rong
+        
+        self.total_gia_cong_time = 0
+        self.total_late_time = 0
+        self.total_deadline_time = 0
+        self.total_time_line = 0
+
         self.mean_done_time = 0
         self.mean_work = 0
         self.mean_late = 0
 
         self.do_huu_dung = 0
         
-# Dinh nghia mot danh sach cac cong viec - define a list of work
-class WSPT:
-    # Khoi tao gia tri
-    def __init__List(self, val_a):
-        self.volume = val_a
-        self.list_work = []; # Tao danh sach rong
-        
-        for i in range(0, self.volume):
+        for i in range(0,self.volume):
             print(f"--Công việc thứ {i+1}-- ")
             temp1 = input("Nhập tên công việc: " )
-            temp2 = float(input("Nhập thời gian gia công của công việc: " ))
-            temp3 = float(input("Nhập thời gian tới hạn của công việc: " ))
+            temp2 = int(input("Nhập thời gian gia công của công việc: " ))
+            temp3 = int(input("Nhập thời gian tới hạn của công việc: " ))
             temp4 = float(input("Nhập trọng số của công việc: "))
-            temp5 = float(temp3/temp4)
+            temp5 = float(temp2/temp4)
+            print("Tỉ lệ", temp5)
             self.list_work.append(work(temp1, temp2, temp3, temp4,temp5)); # Khoi tao gia tri cho phan tu vua them vao danh sach
-            
     # Tinh cac chi so va thu tu cong viec theo WSPT
     def _calculate_(self):
         # Sắp xếp danh sách công việc theo quy tắc WSPT
         self.time_line = [self.list_work[0].time_work]
-        self.list_work = sorted(self.list_work[4].rate) 
+        self.list_work = sorted(self.list_work, key = lambda x: x.rate, reverse = False) 
 
-        for i in range(self.volume):
+        for i in range(0,self.volume):
             self.total_gia_cong_time += self.list_work[i].time_work
            
             self.total_late_time += cal_time(self.list_work[i].time_end, self.total_gia_cong_time)
@@ -61,15 +70,9 @@ class WSPT:
 
         self.process = [i.name_work for i in self.list_work]
 
-        self.mean_done_time = self.total_time_line / self.volume
 
-        self.do_huu_dung = round(self.total_gia_cong_time / self.total_time_line * 100, 2)
 
-        self.mean_work = round(self.total_time_line / self.total_gia_cong_time, 3)
-
-        self.mean_late = self.total_late_time / self.volume
-# Xuat ra command
-def show(self):
+    def show(self):
         print('-----------------------')
         print(f'Tổng thời gian gia công: {self.total_gia_cong_time}')
         print(f'Tổng thời gian trễ hạn: {self.total_late_time}')
@@ -78,17 +81,14 @@ def show(self):
         print(f'Tổng thời gian time line: {self.total_time_line}')
         print(f'Tổng thời gian công việc: {self.total_time_line}')
         print(f'Tổng thời gian tới hạn: {self.total_deadline_time}')
-        print(f'Thời gian hoàn thành trung bình: {self.mean_done_time}')
-        print(f'Độ hữu dụng: {self.do_huu_dung}')
-        print(f'Số lượng công việc trung bình: {self.mean_work}')
-        print(f'Độ trễ trung bình: {self.mean_late}')
-
+        
 #import h_FCFS as fcfs
 #import h_SPT as spt
 #import h_WSPT as wspt
 
 #list_work = wspt.WSPT()
+
 list_work = WSPT()
-list_work.__init__List(int(input("Nhập số lượng công việc: ")))
+list_work._init_List(int(input("Nhập số lượng công việc: ")))
 list_work._calculate_()
 list_work.show()
