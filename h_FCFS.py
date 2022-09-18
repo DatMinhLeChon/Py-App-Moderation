@@ -45,19 +45,26 @@ class FCFS:
     def calculate(self):
         self.total_time =0;
         self.total_late_time =0;
+        self.total_work_time =0;
         self.process = [];
         for i in range(0, int(self.volume)):
             # Tinh Tong thoi gian cong viec tai thoi diem cong viec thu i duoc thuc hien
             self.total_time = 2*int(self.total_time) + int(self.list_work[i].time_work); 
             # Tinh tong thoi gian du thua cho den thoi diem cong viec i
             self.total_late_time = int(self.total_late_time) + int(cal_time(self.list_work[i].time_end, self.total_time));
+            # Tinh thoi gian cong viec tong
+            self.total_work_time += self.list_work[i].time_work;
             # Them ten cong viec i vao thu tu thuc hien
             self.process.append(self.list_work[i].name_work);
     
     # Xuat ra command
     def show(self):
         print(self.total_time);
-        print(self.total_late_time);
+        print(self.total_work_time);
+        print(self.total_late_time)/self.volumn;
         print(self.process);
+        print(self.total_time/self.total_work_time;
+        print(self.total_work_time/self.total_time);
+        
         
      
